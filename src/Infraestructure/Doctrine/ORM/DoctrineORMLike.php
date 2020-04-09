@@ -1,17 +1,16 @@
 <?php
 namespace App\Infraestructure\Doctrine\ORM;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Comment;
+use App\Entity\Like;
 
 /**
- * DoctrineORMComment
+ * DoctrineORMLike
  *
- * @ORM\Table(name="comments", indexes={@ORM\Index(name="fk_comments_images", columns={"image_id"}), @ORM\Index(name="fk_comments_users", columns={"user_id"})})
+ * @ORM\Table(name="likes", indexes={@ORM\Index(name="fk_likes_images", columns={"image_id"}), @ORM\Index(name="fk_likes_users", columns={"user_id"})})
  * @ORM\Entity
  */
-
-class DoctrineORMComment extends Comment{
-        /**
+class DoctrineORMLike extends Like{
+     /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
@@ -19,13 +18,6 @@ class DoctrineORMComment extends Comment{
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="content", type="text", length=65535, nullable=true)
-     */
-    private $content;
 
     /**
      * @var \DateTime|null
@@ -42,9 +34,9 @@ class DoctrineORMComment extends Comment{
     private $updatedAt;
 
     /**
-     * @var \DoctrineORMImage
+     * @var \Images
      *
-     * @ORM\ManyToOne(targetEntity="DoctrineORMImage")
+     * @ORM\ManyToOne(targetEntity="Images")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="image_id", referencedColumnName="id")
      * })
@@ -52,15 +44,16 @@ class DoctrineORMComment extends Comment{
     private $image;
 
     /**
-     * @var \DoctrineORMUser
+     * @var \Users
      *
-     * @ORM\ManyToOne(targetEntity="DoctrineORMUser")
+     * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
      */
     private $user;
+
     public function __construct(){
-        parent::__construct($this->$id,$this->$content,$this->$createdAt,$this->$updatedAt,$this->$image,$this->$user);
+        parent::__construct($this->$id,$this->$createdAt,$this->$updatedAt,$this->$image,$this->$user);
     }
 }

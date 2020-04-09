@@ -1,16 +1,15 @@
 <?php
 namespace App\Infraestructure\Doctrine\ORM;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Comment;
+use App\Entity\Image;
 
 /**
- * DoctrineORMComment
+ * DoctrineORMImage
  *
- * @ORM\Table(name="comments", indexes={@ORM\Index(name="fk_comments_images", columns={"image_id"}), @ORM\Index(name="fk_comments_users", columns={"user_id"})})
+ * @ORM\Table(name="images", indexes={@ORM\Index(name="fk_images_users", columns={"user_id"})})
  * @ORM\Entity
  */
-
-class DoctrineORMComment extends Comment{
+class DoctrineORMImage extends Image{
         /**
      * @var int
      *
@@ -23,9 +22,16 @@ class DoctrineORMComment extends Comment{
     /**
      * @var string|null
      *
-     * @ORM\Column(name="content", type="text", length=65535, nullable=true)
+     * @ORM\Column(name="image_path", type="string", length=255, nullable=true)
      */
-    private $content;
+    private $imagePath;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     */
+    private $description;
 
     /**
      * @var \DateTime|null
@@ -42,25 +48,16 @@ class DoctrineORMComment extends Comment{
     private $updatedAt;
 
     /**
-     * @var \DoctrineORMImage
+     * @var \Users
      *
-     * @ORM\ManyToOne(targetEntity="DoctrineORMImage")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="image_id", referencedColumnName="id")
-     * })
-     */
-    private $image;
-
-    /**
-     * @var \DoctrineORMUser
-     *
-     * @ORM\ManyToOne(targetEntity="DoctrineORMUser")
+     * @ORM\ManyToOne(targetEntity="Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })
      */
     private $user;
+
     public function __construct(){
-        parent::__construct($this->$id,$this->$content,$this->$createdAt,$this->$updatedAt,$this->$image,$this->$user);
+        parent::__construct($this->$id,$this->$imagePath,$this->$description,$this->$createdAt,$this->$updatedAt,$this->$user);
     }
 }
