@@ -57,7 +57,42 @@ class DoctrineORMImage extends Image{
      */
     private $user;
 
+    /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="App\Infraestructure\Doctrine\ORM\Entities\DoctrineORMLike",mappedBy="DoctrineORMImage")
+     */
+    private $likes;
+
+    /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="App\Infraestructure\Doctrine\ORM\Entities\DoctrineORMComment",mappedBy="DoctrineORMImage")
+     */
+    private $comments;
+
     public function __construct(){
         parent::__construct($this->$id,$this->$imagePath,$this->$description,$this->$createdAt,$this->$updatedAt,$this->$user);
+    }
+
+    
+    /**
+     *
+     *
+     * @return Collection|DoctrineORMlike[]
+     */
+
+    public function getLikes(): Collection{
+        return $this->likes;
+    }
+
+    /**
+     *
+     *
+     * @return Collection|DoctrineORMComment[]
+     */
+
+    public function getComments(): Collection{
+        return $this->comments;
     }
 }

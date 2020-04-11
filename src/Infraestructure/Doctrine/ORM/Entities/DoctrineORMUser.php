@@ -89,7 +89,58 @@ class DoctrineORMUser extends User{
      */
     private $rememberToken;
 
+        /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="App\Infraestructure\Doctrine\ORM\Entities\DoctrineORMLike",mappedBy="DoctrineORMUser")
+     */
+    private $likes;
+
+    /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="App\Infraestructure\Doctrine\ORM\Entities\DoctrineORMComment",mappedBy="DoctrineORMUser")
+     */
+    private $comments;
+
+        /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="App\Infraestructure\Doctrine\ORM\Entities\DoctrineORMImage",mappedBy="DoctrineORMUser")
+     */
+    private $images;
+
     public function __construct(){
         parent::__construct($this->$id,$this->$role,$this->$name,$this->$surname,$this->$nick,$this->$email,$this->$password,$this->$image,$this->$createdAt,$this->$updatedAt,$this->$rememberToken);
+    }
+
+        /**
+     *
+     *
+     * @return Collection|DoctrineORMlike[]
+     */
+
+    public function getLikes(): Collection{
+        return $this->likes;
+    }
+
+    /**
+     *
+     *
+     * @return Collection|DoctrineORMComment[]
+     */
+
+    public function getComments(): Collection{
+        return $this->comments;
+    }
+
+        /**
+     *
+     *
+     * @return Collection|DoctrineORMImage[]
+     */
+
+    public function getImages(): Collection{
+        return $this->images;
     }
 }
